@@ -26,37 +26,99 @@ public class PatienteService {
         System.out.println("1 - Listar Pacientes");
         System.out.println("2 - Editar Paciente");
         System.out.println("3 - Inserir novo Paciente");
-        System.out.println("4 - Apagar Paciente");
+        System.out.println("4 - Procurar Paciente");
+        System.out.println("5 - Apagar Paciente");
 
         int method = sc.nextInt();
 
         switch (method){
             case 1:
-                //Listar
+                //Listar Pacientes
                 listar();
-
                 break;
             case 2:
-                System.out.println("Editar");
+                //Editar Pacientes
                 break;
             case 3:
-                //Inserir
-
+                //Inserir novo Paciente
                 inserir();
                 break;
             case 4:
-                System.out.println("Apagar");
+                //Procurar Paciente
+                searchPaciente();
+                break;
+            case 5:
+                //Deletar Paciente
+                delete();
                 break;
             default:
                 System.out.println("Opção Inválida");
+                System.out.println("Por Favor Insira uma opção válida");
         }
 
     }
 
+
     private void listar() {
 
         List<modelInfoPatientes> mod = patienteRepository.search();
-        System.out.println(mod);
+        for (erivelton.crudPatiente.model.modelInfoPatientes modelInfoPatientes : mod) {
+            System.out.println("Dados Paciente " + modelInfoPatientes.getIdPacientes());
+            System.out.println("Nome:" + modelInfoPatientes.getNomePaciente());
+            System.out.println("Data de Nascimento: " + modelInfoPatientes.getDataNasc());
+            System.out.println("CPF: " + modelInfoPatientes.getCpf());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefonePaciente());
+            System.out.println("e-mail: " + modelInfoPatientes.getEmailPaciente());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoResponsavel());
+            System.out.println("Número: " + modelInfoPatientes.getEnderecoNumero());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroPaciente());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadePaciente());
+            System.out.println("UF: " + modelInfoPatientes.getUf());
+            System.out.println();
+            System.out.println("Dados Responsável");
+            System.out.println("Nome: " + modelInfoPatientes.getNomeResponsavel());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefoneResponsavel());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoResponsavel());
+            System.out.println("Número: " + modelInfoPatientes.getEnderecoNumeroResponsavel());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroResponsavel());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadeResponsavel());
+            System.out.println("UF: " + modelInfoPatientes.getUfResponsavel());
+            System.out.println();
+        }
+    }
+
+    private void searchPaciente(){
+
+        Scanner sc = new Scanner(System.in);
+
+        String likeName;
+        System.out.print("Nome do Paciente: ");
+        likeName = sc.nextLine() + '%';
+
+        List<modelInfoPatientes> mod = patienteRepository.searchPatiente(likeName);
+        for (erivelton.crudPatiente.model.modelInfoPatientes modelInfoPatientes : mod) {
+            System.out.println("Dados Paciente " + modelInfoPatientes.getIdPacientes());
+            System.out.println("Nome: " + modelInfoPatientes.getNomePaciente());
+            System.out.println("Data de Nascimento: " + modelInfoPatientes.getDataNasc());
+            System.out.println("CPF: " + modelInfoPatientes.getCpf());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefonePaciente());
+            System.out.println("e-mail: " + modelInfoPatientes.getEmailPaciente());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoPaciente());
+            System.out.println("Número: " + modelInfoPatientes.getEnderecoNumero());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroPaciente());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadePaciente());
+            System.out.println("UF: " + modelInfoPatientes.getUf());
+            System.out.println();
+            System.out.println("Dados Responsável");
+            System.out.println("Nome: " + modelInfoPatientes.getNomeResponsavel());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefoneResponsavel());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoPaciente());
+            System.out.println("Númeor: " + modelInfoPatientes.getEnderecoNumeroResponsavel());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroResponsavel());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadeResponsavel());
+            System.out.println("UF: " + modelInfoPatientes.getUfResponsavel());
+            System.out.println();
+        }
     }
 
     private void inserir(){
@@ -65,7 +127,7 @@ public class PatienteService {
 
         modelInfoPatientes modelInfoPatientes = new modelInfoPatientes();
 
-        System.out.println("Dados do Paciente");
+        System.out.println("Informe os dados do Paciente");
         System.out.print("Nome: ");
         modelInfoPatientes.setNomePaciente(sc.nextLine());
         System.out.print("Data de Nascimento: ");
@@ -88,7 +150,7 @@ public class PatienteService {
         modelInfoPatientes.setUf(sc.nextLine());
 
 
-        System.out.println("Dados do Contato ");
+        System.out.println("Informe os dados do Contato ");
         System.out.print("Nome: ");
         modelInfoPatientes.setNomeResponsavel(sc.nextLine());
         System.out.print("Telefone: ");
@@ -104,7 +166,7 @@ public class PatienteService {
         System.out.print("UF: ");
         modelInfoPatientes.setUfResponsavel(sc.nextLine());
 
-        patienteRepository.insertInfoPatience(modelInfoPatientes.getNomePaciente(),
+        patienteRepository.insertInfoPatiente(modelInfoPatientes.getNomePaciente(),
                 modelInfoPatientes.getDataNasc(),
                 modelInfoPatientes.getCpf(),
                 modelInfoPatientes.getTelefonePaciente(),
@@ -121,5 +183,9 @@ public class PatienteService {
                 modelInfoPatientes.getBairroResponsavel(),
                 modelInfoPatientes.getCidadeResponsavel(),
                 modelInfoPatientes.getUfResponsavel());
+    }
+
+    private void delete(){
+
     }
 }

@@ -19,7 +19,7 @@ public interface PatienteRepository extends JpaRepository<modelInfoPatientes, In
     @Query(value = "INSERT INTO info_patientes VALUES(default, :nomePaciente, :dataNasc, :cpf,:telefonePaciente,:emailPaciente,:enderecoPaciente,:enderecoNumero,\n" +
             ":bairroPaciente,:cidadePaciente,:uf,:nomeResponsavel,:telResp,:enderecoResponsavel,:enderecoNumeroResponsavel,\n" +
             ":bairroResponsavel,:cidadeResponsavel,:ufResponsavel)", nativeQuery = true)
-    void insertInfoPatience(@Param("nomePaciente") String nomePaciente,
+    void insertInfoPatiente(@Param("nomePaciente") String nomePaciente,
                             @Param("dataNasc") String dataNasc,
                             @Param("cpf") String cpf,
                             @Param("telefonePaciente") String telefonePaciente,
@@ -36,4 +36,8 @@ public interface PatienteRepository extends JpaRepository<modelInfoPatientes, In
                             @Param("bairroResponsavel") String bairroResponsavel,
                             @Param("cidadeResponsavel") String cidadeResponsavel,
                             @Param("ufResponsavel") String ufResponsavel);
+
+
+    @Query(value = "SELECT * FROM info_patientes ip WHERE NOME_PACI LIKE :nomePaci", nativeQuery = true)
+    List<modelInfoPatientes> searchPatiente(@Param("nomePaci") String nomePaciente);
 }
