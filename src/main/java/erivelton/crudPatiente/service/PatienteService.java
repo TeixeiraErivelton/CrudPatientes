@@ -121,6 +121,5 @@ public class PatienteService {
                 modelInfoPatientes.getBairroResponsavel(),
                 modelInfoPatientes.getCidadeResponsavel(),
                 modelInfoPatientes.getUfResponsavel());
-
     }
 }
