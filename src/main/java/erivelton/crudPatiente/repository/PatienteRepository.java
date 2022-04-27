@@ -74,4 +74,10 @@ public interface PatienteRepository extends JpaRepository<modelInfoPatientes, In
                   @Param("cidadeResp") String cidadeResp,
                   @Param("ufResp") String ufResp,
                   @Param("nomePaci") String nomePaci);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from info_patientes where NOME_PACI = :nomePaci", nativeQuery = true)
+    void deletePaciente(@Param("nomePaci") String nomePaci);
+
 }

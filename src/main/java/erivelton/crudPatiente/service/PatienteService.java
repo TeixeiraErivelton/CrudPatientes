@@ -54,6 +54,7 @@ public class PatienteService {
 
             case 5:
                 //Deletar Paciente
+                deletar();
                 break;
 
             default:
@@ -188,6 +189,8 @@ public class PatienteService {
                 modelInfoPatientes.getBairroResponsavel(),
                 modelInfoPatientes.getCidadeResponsavel(),
                 modelInfoPatientes.getUfResponsavel());
+
+        System.out.println("Paciente " + modelInfoPatientes.getNomePaciente() + " inserido!");
     }
 
     private void editar() {
@@ -263,6 +266,8 @@ public class PatienteService {
                             editPaci.getEnderecoNumero(), editPaci.getBairroPaciente(), editPaci.getCidadePaciente(),
                             editPaci.getUf(), likeName);
 
+                    System.out.println("Paciente " + modelInfoPatientes.getNomePaciente() + " editado!");
+
                     break;
                 case 2:
 
@@ -290,6 +295,8 @@ public class PatienteService {
                             editResp.getBairroResponsavel(), editResp.getCidadeResponsavel(),
                             editResp.getUfResponsavel(), likeNameMod);
 
+                    System.out.println("Responsável " + modelInfoPatientes.getNomeResponsavel() + " editado!");
+
                     break;
 
                 default:
@@ -301,4 +308,53 @@ public class PatienteService {
 
     }
 
+    private void deletar(){
+
+        Scanner sc = new Scanner(System.in);
+
+        String likeName;
+        System.out.print("Nome do Paciente: ");
+        likeName = sc.nextLine() + '%';
+
+        List<modelInfoPatientes> mod = patienteRepository.searchPatiente(likeName);
+        for (erivelton.crudPatiente.model.modelInfoPatientes modelInfoPatientes : mod) {
+            System.out.println("Dados Paciente " + modelInfoPatientes.getIdPacientes());
+            System.out.println("Nome: " + modelInfoPatientes.getNomePaciente());
+            System.out.println("Data de Nascimento: " + modelInfoPatientes.getDataNasc());
+            System.out.println("CPF: " + modelInfoPatientes.getCpf());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefonePaciente());
+            System.out.println("e-mail: " + modelInfoPatientes.getEmailPaciente());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoPaciente());
+            System.out.println("Número: " + modelInfoPatientes.getEnderecoNumero());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroPaciente());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadePaciente());
+            System.out.println("UF: " + modelInfoPatientes.getUf());
+            System.out.println();
+            System.out.println("Dados Responsável");
+            System.out.println("Nome: " + modelInfoPatientes.getNomeResponsavel());
+            System.out.println("Telefone: " + modelInfoPatientes.getTelefoneResponsavel());
+            System.out.println("Endereço: " + modelInfoPatientes.getEnderecoPaciente());
+            System.out.println("Númeor: " + modelInfoPatientes.getEnderecoNumeroResponsavel());
+            System.out.println("Bairro: " + modelInfoPatientes.getBairroResponsavel());
+            System.out.println("Cidade: " + modelInfoPatientes.getCidadeResponsavel());
+            System.out.println("UF: " + modelInfoPatientes.getUfResponsavel());
+            System.out.println();
+
+            System.out.println("Deseja deletar o(a) Paciente " + modelInfoPatientes.getIdPacientes() + ", " +
+                    modelInfoPatientes.getNomePaciente() + "?");
+            System.out.println("S ou N");
+            String confirm = sc.next();
+
+            if (confirm.equals(String.valueOf('S'))){
+                patienteRepository.deletePaciente(modelInfoPatientes.getNomePaciente());
+
+                System.out.println("Paciente " + modelInfoPatientes.getNomePaciente() + " deletado!");
+
+            }else{
+                System.out.println("Paciente " + modelInfoPatientes.getNomePaciente() + " não foi apagado!");
+            }
+
+        }
+
+    }
 }
